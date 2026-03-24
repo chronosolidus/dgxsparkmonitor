@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=1774200162">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=1774200162">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=1774200162">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=1774200162">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1774200162">
+    <title>DGX Spark Cluster Monitor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;400;500;700&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script data-cfasync="false" src="/socket.io/socket.io.js"></script>
+    <style>
+        /* Logout button - matches connections page */
+        .nav-link.logout {
+            color: rgba(255, 0, 68, 0.7);
+            transition: color 0.3s ease;
+        }
+        .nav-link.logout:hover {
+            color: #ff0044;
+            text-shadow: 0 0 10px rgba(255, 0, 68, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <canvas id="neural-bg" style="opacity: 0.4;"></canvas>
+    <div class="scanline-overlay"></div>
+    <div class="grid-bg"></div>
+
+    <!-- Navigation Header -->
+    <nav class="cyber-nav">
+        <div class="nav-brand">
+            <img src="/favicon.svg" alt="DGX" style="width:36px;height:36px;vertical-align:middle;filter:drop-shadow(0 0 8px var(--neon-cyan)) drop-shadow(0 0 16px var(--neon-cyan));" class="brand-icon-img">
+            <span class="brand-text">DGX<span class="accent">SPARK</span></span>
+            <span class="brand-sub">CLUSTER MONITOR</span>
+        </div>
+        <div class="nav-links">
+            <a href="/" class="nav-link active">
+                <img src="/favicon.svg" alt="" style="width:28px;height:28px;vertical-align:middle;margin-right:6px;filter:grayscale(1) brightness(0.6) opacity(0.7);" class="brand-icon-img"> Dashboard
+            </a>
+            <a href="/connections" class="nav-link">
+                <span class="nav-icon" style="font-size:2em;vertical-align:middle;line-height:1;margin-right:4px;">&#9881;</span> Connections
+            </a>
+            <a href="/auth/logout" class="nav-link logout" id="dashboard-logout-btn" style="display:none;">
+                <img src="/logout-icon.png" alt="LOGOUT" style="width:24px;height:24px;vertical-align:middle;margin-right:6px;"> Logout
+            </a>
+        </div>
+        <div class="nav-status">
+            <span class="status-dot" id="ws-status"></span>
+            <span class="status-label" id="ws-status-text">Connecting...</span>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Unified Status Bar: Weather + Monitoring Controls -->
+        <div class="status-bar">
+            <div class="status-bar-left">
+                <div class="weather-icon" id="weather-icon">&#127780;&#65039;</div>
+                <div class="weather-info">
+                    <span class="weather-temp" id="temperature">--&deg;F</span>
+                    <span class="weather-condition" id="condition">--</span>
+                </div>
+                <div class="weather-detail">
+                    <span id="weather-loc" class="weather-loc"></span>
+                    <span class="weather-extra"><span id="humidity">--%</span> humidity &bull; <span id="wind-speed">--</span> mph wind</span>
+                </div>
+            </div>
+            <div class="status-bar-right">
+                <div class="control-info">
+                    <span id="cluster-count">0</span> clusters &bull;
+                    <span id="node-count">0</span> nodes &bull;
+                    <span id="stream-count">0</span> streams
+                </div>
+                <button class="cyber-btn" id="btn-start" style="display:none;">
+                    <span class="btn-icon">&#9654;</span> Start Monitoring
+                </button>
+                <button class="cyber-btn danger" id="btn-stop" style="display:none;">
+                    <span class="btn-icon">&#9632;</span> Stop Monitoring
+                </button>
+            </div>
+        </div>
+
+        <!-- No Connections Notice -->
+        <div class="notice-panel" id="no-connections" style="display:none;">
+            <div class="notice-icon">&#9888;</div>
+            <h3>No SSH Connections Configured</h3>
+            <p>Add your DGX Spark cluster connections to begin monitoring.</p>
+            <a href="/connections" class="cyber-btn">Configure Connections</a>
+        </div>
+
+        <!-- Dynamic Cluster Panels (populated by JS) -->
+        <div id="clusters-container"></div>
+    </div>
+
+    <footer class="cyber-footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <div class="footer-brand-group">
+                    <img src="/favicon.svg" alt="DGX" style="width:20px;height:20px;vertical-align:middle;filter:drop-shadow(0 0 4px var(--neon-cyan)) drop-shadow(0 0 8px var(--neon-cyan));margin-right:6px;">
+                    <span class="footer-brand-text">DGX<span class="accent">SPARK</span></span>
+                    <span class="footer-brand-sub">CLUSTER MONITOR</span>
+                </div>
+
+            </div>
+
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="neural-bg.js?v=1774326511"></script>
+    <script data-cfasync="false" src="dashboard.js?v=1774326511"></script>
+</body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=1774200162">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=1774200162">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=1774200162">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=1774200162">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1774200162">
+    <title>DGX Spark - Connections</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;400;500;700&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Change Password Section */
+        .change-password-section {
+            background: linear-gradient(135deg, rgba(10, 10, 30, 0.6), rgba(20, 15, 40, 0.4));
+            border: 1px solid rgba(191, 0, 255, 0.2);
+            border-radius: 8px;
+            padding: 1.5rem 2rem;
+            margin-top: 2rem;
+        }
+        .change-password-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1rem;
+        }
+        .change-password-header h3 {
+            font-family: var(--font-display, "Orbitron", monospace);
+            font-size: 0.9rem;
+            color: var(--neon-purple, #bf00ff);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+        .password-form-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.8rem;
+            flex-wrap: wrap;
+        }
+        .password-form-label {
+            font-family: var(--font-mono, "JetBrains Mono", monospace);
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.6);
+            min-width: 140px;
+        }
+        .password-form-input {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(191, 0, 255, 0.2);
+            border-radius: 6px;
+            color: var(--neon-cyan, #00e5ff);
+            font-family: var(--font-mono, "JetBrains Mono", monospace);
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            width: 340px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        .password-form-input:focus {
+            border-color: var(--neon-cyan, #00e5ff);
+        }
+        .password-change-result {
+            font-family: var(--font-mono, "JetBrains Mono", monospace);
+            font-size: 0.8rem;
+            min-height: 1.2em;
+            margin-top: 0.5rem;
+        }
+        .password-change-result.success { color: #00ff88; }
+        .password-change-result.error { color: #ff0044; }
+
+
+        /* Weather Zip Code Section */
+        .weather-zip-section {
+            background: linear-gradient(135deg, rgba(10, 10, 30, 0.6), rgba(20, 15, 40, 0.4));
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            border-radius: 8px;
+            padding: 1.5rem 2rem;
+            margin-top: 2rem;
+        }
+        .weather-zip-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1rem;
+        }
+        .weather-zip-header h3 {
+            font-family: var(--font-display, "Orbitron", monospace);
+            font-size: 0.9rem;
+            color: var(--neon-cyan, #00e5ff);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+        .weather-current {
+            font-family: var(--font-mono, "JetBrains Mono", monospace);
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 1rem;
+            padding: 0.5rem 0.8rem;
+            background: rgba(0, 229, 255, 0.05);
+            border-radius: 4px;
+            border-left: 2px solid rgba(0, 229, 255, 0.3);
+        }
+        .weather-current .weather-location {
+            color: var(--neon-cyan, #00e5ff);
+            font-weight: 500;
+        }
+        .weather-current .weather-coords {
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 0.7rem;
+        }
+        .zip-form-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .zip-form-label {
+            font-family: var(--font-mono, "JetBrains Mono", monospace);
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.6);
+            min-width: 140px;
+        }
+        .zip-form-input {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            border-radius: 6px;
+            color: var(--neon-cyan, #00e5ff);
+            font-family: var(--font-mono, "JetBrains Mono", monospace);
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            width: 140px;
+            outline: none;
+            transition: border-color 0.3s ease;
+            letter-spacing: 3px;
+            text-align: center;
+        }
+        .zip-form-input:focus {
+            border-color: var(--neon-cyan, #00e5ff);
+        }
+        .zip-change-result {
+            font-family: var(--font-mono, "JetBrains Mono", monospace);
+            font-size: 0.8rem;
+            min-height: 1.2em;
+            margin-top: 0.5rem;
+        }
+        .zip-change-result.success { color: #00ff88; }
+        .zip-change-result.error { color: #ff0044; }
+        .zip-change-result.loading { color: var(--neon-cyan, #00e5ff); }
+
+        /* Settings two-column layout */
+        .settings-columns {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+        .settings-col-left {
+            flex: 1;
+        }
+        .settings-col-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        .settings-col-right .change-password-header {
+            align-self: flex-end;
+        }
+        .settings-col-right .weather-current {
+            width: fit-content;
+            text-align: right;
+            border-left: none;
+            border-right: 2px solid rgba(0, 229, 255, 0.3);
+            margin-left: auto;
+            padding: 0.5rem 0.8rem;
+        }
+        .settings-col-right .zip-form-row {
+            justify-content: flex-end;
+        }
+        .settings-col-right .zip-change-result {
+            text-align: right;
+            align-self: flex-end;
+        }
+        @media (max-width: 768px) {
+            .settings-columns {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            .settings-col-right {
+                align-items: flex-start;
+                width: 100%;
+            }
+            .settings-col-right .change-password-header {
+                align-self: flex-start;
+            }
+            .settings-col-right .weather-current {
+                margin-left: 0;
+                width: auto;
+                text-align: left;
+                border-right: none;
+                border-left: 2px solid rgba(0, 229, 255, 0.3);
+            }
+            .settings-col-right .zip-form-row {
+                justify-content: flex-start;
+            }
+            .settings-col-right .zip-change-result {
+                text-align: left;
+                align-self: flex-start;
+            }
+            .settings-col-right .cyber-btn {
+                align-self: flex-start;
+            }
+        }
+
+        /* Logout button */
+        .nav-link.logout {
+            color: rgba(255, 0, 68, 0.7);
+            transition: color 0.3s ease;
+        }
+        .nav-link.logout:hover {
+            color: #ff0044;
+            text-shadow: 0 0 10px rgba(255, 0, 68, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <canvas id="neural-bg"></canvas>
+    <div class="scanline-overlay"></div>
+    <div class="grid-bg"></div>
+
+    <!-- Navigation Header -->
+    <nav class="cyber-nav">
+        <div class="nav-brand">
+            <img src="/favicon.svg" alt="DGX" style="width:36px;height:36px;vertical-align:middle;filter:drop-shadow(0 0 8px var(--neon-cyan)) drop-shadow(0 0 16px var(--neon-cyan));" class="brand-icon-img">
+            <span class="brand-text">DGX<span class="accent">SPARK</span></span>
+            <span class="brand-sub">CLUSTER MONITOR</span>
+        </div>
+        <div class="nav-links">
+            <a href="/" class="nav-link">
+                <img src="/favicon.svg" alt="" style="width:28px;height:28px;vertical-align:middle;margin-right:6px;filter:grayscale(1) brightness(0.6) opacity(0.7);" class="brand-icon-img"> Dashboard
+            </a>
+            <a href="/connections" class="nav-link active">
+                <span class="nav-icon" style="font-size:2em;vertical-align:middle;line-height:1;margin-right:4px;">&#9881;</span> Connections
+            </a>
+            <a href="/auth/logout" class="nav-link logout">
+                <img src="/logout-icon.png" alt="LOGOUT" style="width:24px;height:24px;vertical-align:middle;margin-right:6px;"> Logout
+            </a>
+        </div>
+        <div class="nav-status">
+            <span class="save-indicator" id="save-indicator"></span>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">SSH Connections</h1>
+            <p class="page-subtitle">Configure SSH access to your DGX Spark cluster nodes. Connections are stored locally and used for real-time monitoring.</p>
+        </div>
+
+        <!-- Action Bar -->
+        <div class="action-bar">
+            <button class="cyber-btn accent" id="btn-add-cluster">
+                <span class="btn-icon">+</span> Add Cluster
+            </button>
+            <button class="cyber-btn" id="btn-save-all">
+                <span class="btn-icon">&#10003;</span> Save All Connections
+            </button>
+            <button class="cyber-btn danger" id="btn-clear-all">
+                <span class="btn-icon">&#10007;</span> Clear All
+            </button>
+        </div>
+
+        <!-- Clusters Container (populated by JS) -->
+        <div id="clusters-editor"></div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="empty-state">
+            <div class="empty-icon">&#128268;</div>
+            <h3>No Clusters Configured</h3>
+            <p>Click "Add Cluster" to begin configuring your DGX Spark cluster connections.</p>
+        </div>
+
+        <!-- ============================== -->
+        <!-- PLATFORM SETTINGS SECTION       -->
+        <!-- ============================== -->
+        <div class="change-password-section">
+            <div class="settings-columns">
+                <!-- Left Column: Change Access Password -->
+                <div class="settings-col-left">
+                    <div class="change-password-header">
+                        <img src="/key-icon.png" alt="KEY" style="width:40px;height:40px;vertical-align:middle;margin-right:6px;">
+                        <h3>Change Access Password</h3>
+                    </div>
+                    <div class="password-form-row">
+                        <span class="password-form-label">Current Password:</span>
+                        <input type="password" class="password-form-input" id="current-password" placeholder="Enter current password" autocomplete="off">
+                    </div>
+                    <div class="password-form-row">
+                        <span class="password-form-label">New Password:</span>
+                        <input type="password" class="password-form-input" id="new-password" placeholder="Min 5 characters" autocomplete="off">
+                    </div>
+                    <div class="password-form-row">
+                        <span class="password-form-label">Confirm New Password:</span>
+                        <input type="password" class="password-form-input" id="confirm-password" placeholder="Confirm new password" autocomplete="off">
+                    </div>
+                    <button class="cyber-btn accent" id="btn-change-password" style="margin-top: 0.5rem;">
+                        <img src="/lock-icon.png" alt="LOCK" style="width:24px;height:24px;vertical-align:middle;margin-right:6px;"> Update Password
+                    </button>
+                    <div class="password-change-result" id="password-change-result"></div>
+                </div>
+
+                <!-- Right Column: Weather Widget Location -->
+                <div class="settings-col-right">
+                    <div class="change-password-header">
+                        <img src="weather-icon.png" alt="Weather" style="width:40px;height:40px;vertical-align:middle;">
+                        <h3>Weather Widget Location</h3>
+                    </div>
+                    <div class="weather-current" id="weather-current-display">
+                        Current: <span class="weather-location" id="weather-current-location">Loading...</span>
+                        <br><span class="weather-coords" id="weather-current-coords"></span>
+                    </div>
+                    <div class="zip-form-row">
+                        <span class="zip-form-label">US Zip Code:</span>
+                        <input type="text" class="zip-form-input" id="weather-zip-input" placeholder="Enter zip code" maxlength="5" autocomplete="off">
+                    </div>
+                    <div style="display:flex;gap:10px;margin-top:0.5rem;flex-wrap:wrap;">
+                        <button class="cyber-btn accent" id="btn-update-zip">
+                            <img src="/globe-icon.png" alt="Globe" style="width:24px;height:24px;vertical-align:middle;margin-right:6px;"> Update Location
+                        </button>
+                        <button class="cyber-btn danger" id="btn-clear-weather" style="padding:8px 16px;">
+                            <span class="btn-icon">&#10007;</span> Clear Location
+                        </button>
+                    </div>
+                    <div class="zip-change-result" id="zip-change-result"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="cyber-footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <div class="footer-brand-group">
+                    <img src="/favicon.svg" alt="DGX" style="width:20px;height:20px;vertical-align:middle;filter:drop-shadow(0 0 4px var(--neon-cyan)) drop-shadow(0 0 8px var(--neon-cyan));margin-right:6px;">
+                    <span class="footer-brand-text">DGX<span class="accent">SPARK</span></span>
+                    <span class="footer-brand-sub">CLUSTER MONITOR</span>
+                </div>
+
+            </div>
+
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="neural-bg.js"></script>
+    <script src="connections.js?v=1774326777"></script>
+</body>
+</html>
