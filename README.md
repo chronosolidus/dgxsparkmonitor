@@ -156,6 +156,35 @@ npm start
 
 The dashboard will be available at `http://localhost:9100`.
 
+### Docker
+
+#### Docker Run
+
+```bash
+docker run -d --name dgxsparkmonitor -p 9100:9100 --restart unless-stopped ghcr.io/chronosolidus/dgxsparkmonitor:latest
+```
+
+#### Docker Compose
+
+Create a `docker-compose.yml` file:
+
+```yaml
+services:
+  dgxsparkmonitor:
+    image: ghcr.io/chronosolidus/dgxsparkmonitor:latest
+    ports:
+      - 9100:9100
+    restart: unless-stopped
+```
+
+Then run:
+
+```bash
+docker compose up -d
+```
+
+The dashboard will be available at `http://localhost:9100`.
+
 ### Configuration
 
 1. Navigate to the **Connections** page (gear icon in the nav bar)
