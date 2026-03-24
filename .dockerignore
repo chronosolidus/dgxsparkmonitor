@@ -1,0 +1,12 @@
+node_modules
+npm-debug.log*
+logs
+*.log
+.git
+.gitignore
+.dockerignore
+Dockerfile
+README.md
+qr-code.png
+*.bak*
+*_backup_*
