@@ -62,6 +62,62 @@ This is a web-based dashboard that provides live hardware telemetry for NVIDIA D
 
 ---
 
+## Screenshots
+
+### Desktop
+
+#### Dashboard — Empty State
+The main dashboard before any SSH connections are configured, showing the weather widget placeholder and connection prompt.
+
+![Dashboard Empty State](./screenshots/01-dashboard-empty-state.png)
+
+#### Access Required — Login
+Password-protected access gate for the connections management interface.
+
+![Login Page](./screenshots/02-login-page.png)
+
+#### Connections — Empty State
+The SSH connections manager before any clusters are added, with the password and weather location settings panel.
+
+![Connections Empty](./screenshots/03-connections-empty.png)
+
+#### Connections — Configured Clusters
+Two DGX Spark clusters fully configured with head and worker nodes, ready for monitoring.
+
+![Connections Configured](./screenshots/04-connections-configured.png)
+
+#### Live Monitoring — Cluster Overview
+Real-time GPU metrics for a cluster with SVG radial gauges showing memory, cache, swap, temperature, power draw, and utilization per node.
+
+![Monitoring Cluster 1](./screenshots/05-monitoring-cluster1.png)
+
+#### Live Monitoring — Active Workload
+A second cluster under heavy load showing high GPU utilization, active RDMA interconnect traffic, and real-time ethernet bandwidth with sparkline history.
+
+![Monitoring Cluster 2](./screenshots/06-monitoring-cluster2.png)
+
+#### Full Dashboard — Multi-Cluster View
+Both clusters monitored simultaneously — 4 nodes across 2 clusters with all 16 SSH streams active.
+
+![Full Monitoring View](./screenshots/07-monitoring-full-view.png)
+
+### Mobile
+
+Fully responsive design with breakpoint-aware layouts optimized for phones and tablets.
+
+#### Mobile — Dashboard Monitoring
+Linear bar gauges replace radial SVG gauges on smaller screens for optimal readability.
+
+![Mobile Dashboard](./screenshots/08-mobile-dashboard.png)
+
+#### Mobile — Login
+
+![Mobile Login](./screenshots/09-mobile-login.png)
+
+#### Mobile — Connections
+
+![Mobile Connections](./screenshots/10-mobile-connections.png)
+
 ## Tech Stack
 
 | Layer | Technology | Purpose |
